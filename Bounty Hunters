@@ -242,7 +242,8 @@ development :m19RoAU0hP41A1sTsq6K
 
 ssh development@bountyhunters.htb
 cat user.txt
-d2c8a1696f1de4cee8aacf34c30c6724
+
+96f03634f5c928bf20ddb16de907ae9c
 
 development@bountyhunter:/tmp$ sudo -l
 Matching Defaults entries for development on bountyhunter:
