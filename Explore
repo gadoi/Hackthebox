@@ -195,6 +195,9 @@ kristi:Kr1sT!5h@Rp3xP10r3!
 user: kristi
 pwd: Kr1sT!5h@Rp3xPl0r3!
 ssh kristi@explore.htb
+:/ $ cat /sdcard/user.txt
+f32017174c7c7e8f50c6da52891ae250
+
 ss -tulpn
 netstat -tulpn
 ...
